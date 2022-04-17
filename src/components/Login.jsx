@@ -16,10 +16,12 @@ import { AppBar, Toolbar } from '@mui/material';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../Redux/LoginRedux/LoginAction';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const theme = createTheme();
     const dispatch=useDispatch()
+    const navigate= useNavigate()
     const data= useSelector((store)=>store.login)
     console.log(data)
      const [login,setLogin]=useState({
@@ -35,6 +37,9 @@ export default function Login() {
     const logHandler=(e)=>{
         e.preventDefault();
           dispatch(fetchData(login))
+         setTimeout(()=>{
+            navigate("/main")
+         } ,3000)
        
     }
   return (

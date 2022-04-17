@@ -3,6 +3,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from '../components/Home'
 import Login from '../components/Login'
+import { Main } from '../components/Main'
 
 export default function AllRoutes() {
   return (
@@ -10,7 +11,7 @@ export default function AllRoutes() {
    <Routes>
      <Route path='/' element={<Home/>}/>
      <Route path='/login' element={<Login/>}/>
-     <Route/>
+     <Route path='/main' element={<Main/>}/>
    </Routes>
    </>
   )
