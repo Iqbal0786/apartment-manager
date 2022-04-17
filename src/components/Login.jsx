@@ -13,12 +13,29 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AppBar, Toolbar } from '@mui/material';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchData } from '../Redux/LoginRedux/LoginAction';
 
 export default function Login() {
     const theme = createTheme();
-     const [login,setLogin]=useState();
-    const handleSubmit=(e)=>{
+    const dispatch=useDispatch()
+    const data= useSelector((store)=>store.login)
+    console.log(data)
+     const [login,setLogin]=useState({
+         email:"",
+         password:""
+     });
 
+     const getData=(e)=>{
+        let {id,value}=e.target;
+        setLogin({...login,[id]:value})
+     }
+     //console.log(login);
+    const logHandler=(e)=>{
+        e.preventDefault();
+          dispatch(fetchData(login))
+       
     }
   return (
    <>
@@ -46,7 +63,7 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form"  noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -56,6 +73,7 @@ export default function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={getData}
             />
             <TextField
               margin="normal"
@@ -66,6 +84,7 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={getData}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -76,6 +95,7 @@ export default function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={logHandler}
             >
               Sign In
             </Button>
